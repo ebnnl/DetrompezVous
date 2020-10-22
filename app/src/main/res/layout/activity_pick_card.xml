@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PickCardActivity_"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Au tour de :"
+        android:textSize="20dp"
+        android:layout_margin="5dp"
+        ></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom"
+        android:textSize="25dp"
+        android:id="@+id/activity_pick_card_name_text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="25dp"
+        android:id="@+id/activity_pick_card_reminder_text"/>
+
+    <Button
+        android:id="@+id/activity_pick_card_green_action"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:background="@color/green"
+        android:text="Action verte"
+        android:layout_margin="15dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/activity_pick_card_orange_action"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:background="@color/yellow"
+        android:text="Action orange"
+        android:layout_margin="15dp"
+        android:layout_height="wrap_content"></Button>
+
+    <Button
+        android:id="@+id/activity_pick_card_red_action"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:background="@color/red"
+        android:text="Action rouge"
+        android:layout_margin="15dp"
+        android:layout_height="wrap_content"></Button>
+
+    <Button
+        android:id="@+id/activity_pick_card_no_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:text="Pas d'action"
+        android:layout_margin="15dp"/>
+
+</LinearLayout>
