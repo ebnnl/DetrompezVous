@@ -28,6 +28,12 @@ public class Action implements Serializable {
         Player randomPlayer = players.getRandomPlayer();
         Element randomElement = elements.getRandomElement();
 
+        if (impact==Constants.NO_TROMPE){
+            while (randomElement.getName().contentEquals("une trompe")){
+                randomElement = elements.getRandomElement();
+            }
+        }
+
         Random rand = new Random();
         int randomNumber = rand.nextInt(10);
 
@@ -39,7 +45,7 @@ public class Action implements Serializable {
     public void impactPlayers(PlayersList players){
         Player currentPlayer = players.getCurrentPlayer();
         if (impact==Constants.REPLAY_IMPACT){
-            players.replay(currentPlayer.getId());
+            players.replay();
         }
         else if (impact==Constants.DE_EN_MOINS_IMPACT){
             currentPlayer.incrementDeEnMoins(3);

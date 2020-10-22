@@ -55,8 +55,10 @@ public class PlayersList implements Serializable {
         }
     }
 
-    public void replay(int player){
-        nextPlayers.add(0, player);
+    public void replay(){
+        int currentPlayerId = nextPlayers.indexOf(currentPlayer);
+        nextPlayers.remove(currentPlayerId);
+        nextPlayers.add(0, currentPlayer);
     }
 
 

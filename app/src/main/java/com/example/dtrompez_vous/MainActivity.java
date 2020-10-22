@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         actions.addAction(new Action("Vous avez un lancer en plus pour les 2 prochains tours", Constants.LANCER_EN_PLUS_IMPACT, 1), Constants.GREEN_ACTION);
         actions.addAction(new Action("Echanger avec l'éléphant le plus garni", Constants.NO_IMPACT, 1), Constants.GREEN_ACTION);
         actions.addAction(new Action("Prendre [element] au joueur de votre choix", Constants.NO_IMPACT, 1), Constants.GREEN_ACTION);
-        actions.addAction(new Action("Prendre [element] à la pioche", Constants.NO_IMPACT, 1), Constants.GREEN_ACTION);
+        actions.addAction(new Action("Prendre [element] à la pioche", Constants.NO_TROMPE, 1), Constants.GREEN_ACTION);
         actions.addAction(new Action("Prendre en élément à [joueur]", Constants.NO_IMPACT, 1), Constants.GREEN_ACTION);
 
 
