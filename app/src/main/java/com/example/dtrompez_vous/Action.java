@@ -28,7 +28,10 @@ public class Action implements Serializable {
         Player randomPlayer = players.getRandomPlayer();
         Element randomElement = elements.getRandomElement();
 
-        String readableAction = actionString.replace("[joueur]",randomPlayer.getName()).replace("[element]", randomElement.getName());
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(10);
+
+        String readableAction = actionString.replace("[joueur]",randomPlayer.getName()).replace("[element]", randomElement.getName()).replace("[n]", String.valueOf(randomNumber));
         return readableAction;
     }
 
