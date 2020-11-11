@@ -1,6 +1,9 @@
 package com.example.dtrompez_vous;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.widget.PopupWindow;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +21,8 @@ public class Action implements Serializable {
     }
 
     public String getActionString() {return actionString;}
+
+    public int getImpact(){return impact;}
 
     public int getProba() {
         return probability;
@@ -59,6 +64,8 @@ public class Action implements Serializable {
         else if (impact==Constants.SKIP_IMPACT){
             currentPlayer.incrementSkip(1);
         }
+
         return;
     }
+
 }

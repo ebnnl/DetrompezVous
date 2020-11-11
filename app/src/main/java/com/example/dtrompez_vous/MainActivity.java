@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         actions.addAction(new Action("Prendre [element] au joueur de votre choix", Constants.NO_IMPACT, 1), Constants.GREEN_ACTION);
         actions.addAction(new Action("Prendre [element] à la pioche", Constants.NO_TROMPE, 1), Constants.GREEN_ACTION);
         actions.addAction(new Action("Prendre en élément à [joueur]", Constants.NO_IMPACT, 1), Constants.GREEN_ACTION);
+        actions.addAction(new Action("Vous avez 15 secondes pour faire un Yams", Constants.START_TIMER, 1), Constants.GREEN_ACTION);
 
 
         actions.addAction(new Action("Echanger avec l'éléphant de [joueur]", Constants.NO_IMPACT, 1), Constants.ORANGE_ACTION);

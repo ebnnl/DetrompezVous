@@ -12,5 +12,6 @@ public class Constants {
     public static final int LANCER_EN_MOINS_IMPACT = 4;
     public static final int SKIP_IMPACT = 5;
     public static final int NO_TROMPE = 6;
+    public static final int START_TIMER =  7;
 
 }
