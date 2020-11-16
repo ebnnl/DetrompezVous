@@ -3,4 +3,4 @@ Application Android pour le jeu de plateau "Détrompez-vous" créé par Elise Bo
 Permet de tirer des cartes aléatoires personnalisées avec le nom des joueurs.
 
 ![Screenshot](Capture1.jpg)
-![Screenshot](Capture2.png)
+![Screenshot](Capture2.jpg)
