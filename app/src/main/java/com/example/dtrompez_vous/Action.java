@@ -13,11 +13,13 @@ public class Action implements Serializable {
     private String actionString;
     private int impact;
     private int probability;
+    private String precision;
 
-    public Action(String actionString, int impact, int probability){
+    public Action(String actionString, int impact, int probability, String precision){
         this.actionString = actionString;
         this.impact = impact;
         this.probability = probability;
+        this.precision = precision;
     }
 
     public String getActionString() {return actionString;}
@@ -40,10 +42,14 @@ public class Action implements Serializable {
         }
 
         Random rand = new Random();
-        int randomNumber = rand.nextInt(10);
+        int randomNumber = rand.nextInt(10)+1;
 
         String readableAction = actionString.replace("[joueur]",randomPlayer.getName()).replace("[element]", randomElement.getName()).replace("[n]", String.valueOf(randomNumber));
         return readableAction;
+    }
+
+    public String getPrecision() {
+        return precision;
     }
 
     // TODO

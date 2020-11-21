@@ -5,42 +5,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreatePlayersActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/background_image_view_players"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:scaleX="1.3"
+            android:scaleY="1.3"
+            android:src="@drawable/background41"
+            android:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:layout_alignParentTop="true"
 
-             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre de joueurs :"></TextView>
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/actor"
+                android:text="Nombre de joueurs :"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"></TextView>
 
             <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_create_players_spinner"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+                android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/activity_create_players_input_layout"></LinearLayout>
+                android:id="@+id/activity_create_players_input_layout"
+                android:layout_gravity="center"></LinearLayout>
 
-            <Button
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/activity_create_players_play_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/activity_create_players_play_button"
-                android:text="Jouer"></Button>
+                android:layout_centerInParent="true"
+                android:layout_margin="10dp"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:text="Jouer"
+                android:textColor="@android:color/white"
+                app:fButtonColor="@color/green"
+                fbutton:shadowEnabled="true"
+                android:layout_gravity="center"/>
 
 
 

@@ -1,6 +1,7 @@
 package com.example.dtrompez_vous;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -24,6 +26,7 @@ public class CreatePlayersActivity extends AppCompatActivity {
     private LinearLayout inputLayout;
     private int nbPlayers = 0;
     private PlayersList players;
+    private ImageView background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class CreatePlayersActivity extends AppCompatActivity {
         nbPlayersSpinner = (Spinner) findViewById(R.id.activity_create_players_spinner);
         playButton = (Button) findViewById(R.id.activity_create_players_play_button);
         inputLayout = (LinearLayout) findViewById(R.id.activity_create_players_input_layout);
+        background = (ImageView) findViewById(R.id.background_image_view_players);
 
         final List<Integer> nbPlayersList = Arrays.asList(2,3,4, 5);
         ArrayAdapter adapterNbPlayers = new ArrayAdapter(this, android.R.layout.simple_spinner_item, nbPlayersList);
@@ -76,10 +80,20 @@ public class CreatePlayersActivity extends AppCompatActivity {
         inputLayout.removeAllViews();
         players = new PlayersList(nbPlayers);
 
+        if (nbPlayers==2){
+            background.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.background41));
+        }
+        else if (nbPlayers==3 || nbPlayers==4){
+            background.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.background42));
+        }
+        else if (nbPlayers==5){
+            background.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.background43));
+        }
         for(int i = 0; i<nbPlayers; i++){
             final EditText playerEdit = new EditText(this);
             final int j = i;
             playerEdit.setHint("Joueur " + Integer.toString(i));
+            playerEdit.setTextSize(25);
             playerEdit.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -106,6 +106,7 @@ public class PickCardActivity extends AppCompatActivity {
         actionActivity.putExtra("players", players);
         actionActivity.putExtras(b);
         startActivity(actionActivity);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         PickCardActivity.this.finish();
     }
 }

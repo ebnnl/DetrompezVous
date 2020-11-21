@@ -28,12 +28,17 @@ import static com.example.dtrompez_vous.R.layout.timer_popup;
 public class ActionActivity extends AppCompatActivity {
 
     private int type;
-    private ActionsList actions;
 
     private TextView actionTextView;
     private Button okButton;
     private  TextView playerName;
+    private Button precisionButton;
 
+    private ActionsList actions;
+    private  ElementsList elements;
+    private PlayersList players;
+
+    private int timer = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -41,9 +46,9 @@ public class ActionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_action);
 
-        ActionsList actions = (ActionsList)getIntent().getSerializableExtra("actions");
-        ElementsList elements = (ElementsList)getIntent().getSerializableExtra("elements");
-        PlayersList players = (PlayersList)getIntent().getSerializableExtra("players");
+        actions = (ActionsList)getIntent().getSerializableExtra("actions");
+        elements = (ElementsList)getIntent().getSerializableExtra("elements");
+        players = (PlayersList)getIntent().getSerializableExtra("players");
 
         Bundle b = getIntent().getExtras();
         if (b != null){
@@ -53,6 +58,7 @@ public class ActionActivity extends AppCompatActivity {
         playerName = (TextView) findViewById(id.activity_action_player_name);
         actionTextView = (TextView) findViewById(id.activity_action_text);
         okButton = (Button) findViewById(id.activity_action_ok_button);
+        precisionButton = (Button) findViewById(id.activity_action_precision_button);
 
         playerName.setText(players.getCurrentPlayer().getName());
 
@@ -66,26 +72,80 @@ public class ActionActivity extends AppCompatActivity {
                 pickCardActivity.putExtra("elements", elements);
                 pickCardActivity.putExtra("players", players);
                 startActivity(pickCardActivity);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 ActionActivity.this.finish();
             }
         });
+
+
 
         Action randomAction = actions.getRandomAction(type);
         actionTextView.setText(randomAction.getReadableAction(elements, players));
         randomAction.impactPlayers(players);
 
-        if (randomAction.getImpact() == Constants.START_TIMER) {
-            okButton.setText("Je suis prêt !");
-            okButton.setOnClickListener(new Button.OnClickListener(){
+        if (randomAction.getImpact() >= 18){
+            timer = randomAction.getImpact()-10;
+            startTimer();
+        }
 
-                @Override
-                public void onClick(View v) {
-                    AlertDialog dialog = new AlertDialog.Builder(ActionActivity.this)
-                            .setTitle("Vous avez 15 secondes !")
-                            .setMessage("Dépêchez-vous !")
-                            .setPositiveButton("Fait !", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+        precisionButton.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                AlertDialog dialog = new AlertDialog.Builder(ActionActivity.this)
+                        .setTitle("Précisions")
+                        .setMessage(randomAction.getPrecision())
+                        .setPositiveButton("Compris !", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create();
+                dialog.show();
+            }
+        });
+    }
+
+    private void startTimer(){
+        okButton.setText("Je suis prêt(e) !");
+        okButton.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                AlertDialog dialog = new AlertDialog.Builder(ActionActivity.this)
+                        .setTitle("Vous avez 15 secondes !")
+                        .setMessage("Dépêchez-vous !")
+                        .setPositiveButton("Fait !", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                players.nextPlayer();
+                                Intent pickCardActivity = new Intent(ActionActivity.this, PickCardActivity.class);
+                                pickCardActivity.putExtra("actions", actions);
+                                pickCardActivity.putExtra("elements", elements);
+                                pickCardActivity.putExtra("players", players);
+                                startActivity(pickCardActivity);
+                                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                                ActionActivity.this.finish();
+                            }
+                        })
+                        .create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    private final int AUTO_DISMISS_MILLIS = timer*1000;
+                    @Override
+                    public void onShow(final DialogInterface dialog) {
+                        //final Button defaultButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+                        //final CharSequence negativeButtonText = defaultButton.getText();
+                        new CountDownTimer(AUTO_DISMISS_MILLIS, 100) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                ((AlertDialog) dialog).setTitle("Vous avez "+Long.toString(TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)+1)+ " secondes.");
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (((AlertDialog) dialog).isShowing()) {
+                                    // Todo : Add sound
                                     dialog.dismiss();
                                     players.nextPlayer();
                                     Intent pickCardActivity = new Intent(ActionActivity.this, PickCardActivity.class);
@@ -93,44 +153,18 @@ public class ActionActivity extends AppCompatActivity {
                                     pickCardActivity.putExtra("elements", elements);
                                     pickCardActivity.putExtra("players", players);
                                     startActivity(pickCardActivity);
+                                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                                     ActionActivity.this.finish();
                                 }
-                            })
-                            .create();
-                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        private static final int AUTO_DISMISS_MILLIS = 15000;
-                        @Override
-                        public void onShow(final DialogInterface dialog) {
-                            //final Button defaultButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
-                            //final CharSequence negativeButtonText = defaultButton.getText();
-                            new CountDownTimer(AUTO_DISMISS_MILLIS, 100) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    ((AlertDialog) dialog).setTitle("Vous avez "+Long.toString(TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)+1)+ " secondes.");
-                                }
-                                @Override
-                                public void onFinish() {
-                                    if (((AlertDialog) dialog).isShowing()) {
-                                        // Todo : Add sound
-                                        dialog.dismiss();
-                                        players.nextPlayer();
-                                        Intent pickCardActivity = new Intent(ActionActivity.this, PickCardActivity.class);
-                                        pickCardActivity.putExtra("actions", actions);
-                                        pickCardActivity.putExtra("elements", elements);
-                                        pickCardActivity.putExtra("players", players);
-                                        startActivity(pickCardActivity);
-                                        ActionActivity.this.finish();
-                                    }
-                                }
-                            }.start();
-                        }
-                    });
-                    dialog.show();
-                }
-            });
+                            }
+                        }.start();
+                    }
+                });
+                dialog.show();
+            }
+        });
 
 
-        }
     }
 
 
